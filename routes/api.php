@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('continue-session', [RateLimiterController::class, 'continueSession'])->middleware('rateLimiting')->name('continueSession');
-Route::post('close-session', [RateLimiterController::class, 'closeSession'])->middleware('rateLimiting')->name('closeSession');
+Route::post('continue-session', [RateLimiterController::class, 'continueSession'])->middleware(['rateLimiting', 'throttle:1,1'])->name('continueSession');
+Route::post('close-session', [RateLimiterController::class, 'closeSession'])->middleware(['rateLimiting', 'throttle:1,1'])->name('closeSession');
 
